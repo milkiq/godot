@@ -101,6 +101,7 @@ public:
 
 	virtual void material_set_render_priority(RID p_material, int priority) override {}
 	virtual void material_set_shader(RID p_shader_material, RID p_shader) override {}
+	virtual RID material_get_shader(RID p_material) const override { return RID(); }
 
 	virtual void material_set_param(RID p_material, const StringName &p_param, const Variant &p_value) override {}
 	virtual Variant material_get_param(RID p_material, const StringName &p_param) const override { return Variant(); }

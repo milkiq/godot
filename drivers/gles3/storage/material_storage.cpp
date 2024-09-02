@@ -2134,6 +2134,7 @@ RID MaterialStorage::shader_allocate() {
 
 void MaterialStorage::shader_initialize(RID p_rid) {
 	Shader shader;
+	shader.self = p_rid;
 	shader.data = nullptr;
 	shader.mode = RS::SHADER_MAX;
 
@@ -2409,6 +2410,16 @@ void MaterialStorage::material_set_shader(RID p_material, RID p_shader) {
 	//updating happens later
 	material->dependency.changed_notify(Dependency::DEPENDENCY_CHANGED_MATERIAL);
 	_material_queue_update(material, true, true);
+}
+
+RID MaterialStorage::material_get_shader(RID p_material) const {
+	const GLES3::Material *material = material_owner.get_or_null(p_material);
+	ERR_FAIL_NULL_V(material, RID());
+	if (material->shader) {
+		return material->shader->self;
+	} else {
+		return RID();
+	}
 }
 
 void MaterialStorage::material_set_param(RID p_material, const StringName &p_param, const Variant &p_value) {

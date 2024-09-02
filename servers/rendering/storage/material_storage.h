@@ -79,6 +79,7 @@ public:
 
 	virtual void material_set_render_priority(RID p_material, int priority) = 0;
 	virtual void material_set_shader(RID p_shader_material, RID p_shader) = 0;
+	virtual RID material_get_shader(RID p_material) const = 0;
 
 	virtual void material_set_param(RID p_material, const StringName &p_param, const Variant &p_value) = 0;
 	virtual Variant material_get_param(RID p_material, const StringName &p_param) const = 0;

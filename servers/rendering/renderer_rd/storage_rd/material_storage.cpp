@@ -1821,6 +1821,7 @@ RID MaterialStorage::shader_allocate() {
 
 void MaterialStorage::shader_initialize(RID p_rid) {
 	Shader shader;
+	shader.self = p_rid;
 	shader.data = nullptr;
 	shader.type = SHADER_TYPE_MAX;
 
@@ -2119,6 +2120,16 @@ void MaterialStorage::material_set_shader(RID p_material, RID p_shader) {
 	//updating happens later
 	material->dependency.changed_notify(Dependency::DEPENDENCY_CHANGED_MATERIAL);
 	_material_queue_update(material, true, true);
+}
+
+RID MaterialStorage::material_get_shader(RID p_material) const {
+	Material *material = material_owner.get_or_null(p_material);
+	ERR_FAIL_NULL_V(material, RID());
+	if (material->shader) {
+		return material->shader->self;
+	} else {
+		return RID();
+	}
 }
 
 MaterialStorage::ShaderData *MaterialStorage::material_get_shader_data(RID p_material) {

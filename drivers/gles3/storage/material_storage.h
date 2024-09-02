@@ -76,6 +76,7 @@ typedef ShaderData *(*ShaderDataRequestFunction)();
 struct Material;
 
 struct Shader {
+	RID self;
 	ShaderData *data = nullptr;
 	String code;
 	String path_hint;
@@ -609,6 +610,7 @@ public:
 	virtual void material_free(RID p_rid) override;
 
 	virtual void material_set_shader(RID p_material, RID p_shader) override;
+	virtual RID material_get_shader(RID p_material) const override;
 
 	virtual void material_set_param(RID p_material, const StringName &p_param, const Variant &p_value) override;
 	virtual Variant material_get_param(RID p_material, const StringName &p_param) const override;
